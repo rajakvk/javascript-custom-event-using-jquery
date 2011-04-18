@@ -1,0 +1,54 @@
+<html>
+<head>
+<style>
+#container{width:100%;height:100%;position:fixed;}
+#tl, #tr, #bl, #br{width:200px;height:200px;position:absolute;background-color:#eee;}
+#tr{top:0;right:0;}
+#rl{top:0;left:0;}
+#br{bottom:0;right:0;}
+#bl{bottom:0;left:0;}
+</style>
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+</head>
+<body>
+<div id="container">
+	<div id="tl">
+		<div class="error"></div>
+		<input id="top-left" type="button" value="submit"/>
+	</div>
+	<div id="tr">
+		<div class="error"></div>
+		<input id="top-right" type="button" value="submit"/>
+	</div>
+	<div id="bl">
+		<div class="error"></div>
+		<input id="bottom-left" type="button" value="submit"/>
+	</div>
+	<div id="br">
+		<div class="error"></div>
+		<input id="bottom-right" type="button" value="submit"/>
+	</div>	
+</div>
+<script>
+var customEvent = (function(){
+	$(function(){
+		customEvent.init();
+	});
+	var errorHandler = function(e){
+		var formErrorFlag = true;
+		if(formErrorFlag) 
+			$(this).trigger('formError');
+	}
+	var customErrorHandler = function(e){
+		$('.error').html('error at '+e.target.id).css('color','Red');
+	}
+	return {
+		init: function(){
+			$("input:button").bind('click',errorHandler);
+			$("input:button").bind('formError',customErrorHandler);
+		}
+	};
+})();	
+</script>
+</body>
+</html>
